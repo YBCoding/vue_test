@@ -1,6 +1,9 @@
 <template>
-    <div class="rideList">
-        <RideListItem v-for="ride in rides" :ride="ride" :key="ride.id" />
+    <div v-if="error">
+        Oh no 😢 Something went wrong
+    </div>
+    <div v-else>
+        <ride-list-item v-for="ride in rides" :ride="ride" :key="ride.id" class="rideList"/>
     </div>
 </template>
 
@@ -16,10 +19,13 @@
     import RideListItem from './RideListItem';
 
     export default {
-        components: { RideListItem },
+        components: {RideListItem},
         computed: {
-            rides () {
+            rides() {
                 return this.$store.state.rides.rides
+            },
+            error() {
+                return this.$store.state.rides.error
             }
         },
         created() {
